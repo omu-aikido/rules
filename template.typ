@@ -13,15 +13,14 @@
 #let article-counter = counter("article")
 
 #let setup-document(
-  title: "大阪公立大学合氣道部 規約",
+  title,
   organization: "大阪公立大学合氣道部",
-  shorten,
   body,
 ) = {
   set page(
     paper: "a4",
     margin: (x: 18mm, y: 26mm),
-    header: context [#h(1fr)［#shorten］],
+    header: context [#h(1fr)［#title］],
     footer: context [
       #set text(size: 9.5pt)
       #align(center)[#counter(page).display("1 / 1")]
@@ -30,7 +29,7 @@
 
   set text(font: "IPAexMincho", size: 10.5pt, fill: rgb("222"))
   set enum(numbering: n => pad(left: 1em)[#text[（#n）]])
-  set document(title: title, author: organization)
+  set document(title: text[#organization #title])
   set terms(indent: 1em)
   set heading(numbering: "1.1.1")
 
