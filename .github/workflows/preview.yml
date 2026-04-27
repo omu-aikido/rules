@@ -1,8 +1,8 @@
-name: Compile
+name: Preview
 
 on:
   push:
-    branches: [main]
+    branches-ignore: [main]
     paths:
       - "rules.typ"
       - "template.typ"
@@ -56,6 +56,6 @@ jobs:
         run: |
           set -euxo pipefail
           TAG=${{ steps.create_tag.outputs.tag }}
-          gh release create "$TAG" --generate-notes --title "Release $TAG" omu-aikido_rules.pdf
+          gh release create "$TAG" --generate-notes --prerelease --title "Preview $TAG" omu-aikido_rules.pdf
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
