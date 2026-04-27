@@ -19,7 +19,7 @@
 ) = {
   set page(
     paper: "a4",
-    margin: (x: 18mm, y: 26mm),
+    margin: (x: 20mm, y: 28mm),
     header: context [#h(1fr)［#title］],
     footer: context [
       #set text(size: 9.5pt)
@@ -28,21 +28,25 @@
   )
 
   set text(font: "IPAexMincho", size: 10.5pt, fill: rgb("222"))
+  set par(leading: 1.125em)
   set enum(numbering: n => pad(left: 1em)[#text[（#n）]])
   set document(title: text[#organization #title])
   set terms(indent: 1em)
   set heading(numbering: "1.1.1")
-
   show heading.where(level: 1): it => {
+    v(1em)
     set text(size: 10.5pt)
     align(center, it.body)
+    v(1em)
   }
 
   show heading.where(level: 2): it => {
     let nums = counter(heading).at(it.location())
     let n = nums.at(1)
     set text(size: 10.5pt)
-    [#v(1em)第#to-kanji(n)章#h(1em)#it.body]
+    v(1.5em)
+    [第#to-kanji(n)章#h(1em)#it.body]
+    v(-1em)
   }
 
   article-counter.update(0)
@@ -52,7 +56,10 @@
     context {
       let n = article-counter.get().first()
       set text(size: 10.5pt)
-      [#v(0.2em)#h(0.1em)（#it.body）#linebreak()第#to-kanji(n)条#h(0.8em)]
+      v(2em, weak: true)
+      block(below: 0.25em, sticky: true)[#h(0.1em)（#it.body）]
+      v(1em, weak: true)
+      [第#to-kanji(n)条#h(0.8em)]
     }
   }
 
